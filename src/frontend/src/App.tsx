@@ -6,6 +6,7 @@ import MatrixBackground from "./components/MatrixBackground";
 import Navbar from "./components/Navbar";
 import Certifications from "./components/sections/Certifications";
 import Contact from "./components/sections/Contact";
+import Documentation from "./components/sections/Documentation";
 import Experience from "./components/sections/Experience";
 import Hero from "./components/sections/Hero";
 import Projects from "./components/sections/Projects";
@@ -138,6 +139,7 @@ export default function App() {
           <TerminalSection />
           <Certifications />
           <Experience />
+          <Documentation />
           <Contact />
         </main>
         <Footer />
