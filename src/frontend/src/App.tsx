@@ -1,12 +1,11 @@
 import { Toaster } from "@/components/ui/sonner";
 import { useEffect, useRef } from "react";
 import Footer from "./components/Footer";
-import HackerTerminal from "./components/HackerTerminal";
+import KaliTerminal from "./components/KaliTerminal";
 import MatrixBackground from "./components/MatrixBackground";
 import Navbar from "./components/Navbar";
 import Certifications from "./components/sections/Certifications";
 import Contact from "./components/sections/Contact";
-import Documentation from "./components/sections/Documentation";
 import Experience from "./components/sections/Experience";
 import Hero from "./components/sections/Hero";
 import Projects from "./components/sections/Projects";
@@ -35,91 +34,29 @@ function TerminalSection() {
   return (
     <section id="terminal" className="relative z-10 py-20" ref={sectionRef}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-          {/* Left: Terminal */}
-          <div className="section-reveal">
-            <div className="mb-6">
-              <span
-                className="font-mono text-sm tracking-widest uppercase"
-                style={{ color: "oklch(0.87 0.28 145)" }}
-              >
-                {"// Interactive Shell"}
-              </span>
-              <h2 className="text-3xl font-bold mt-1 text-foreground">
-                Hacker Terminal
-              </h2>
-              <p className="text-foreground/45 text-sm mt-2">
-                Type{" "}
-                <code
-                  className="font-mono"
-                  style={{ color: "oklch(0.87 0.28 145)" }}
-                >
-                  help
-                </code>{" "}
-                to explore available commands.
-              </p>
-            </div>
-            <HackerTerminal />
-          </div>
-
-          {/* Right: About quick view */}
-          <div className="section-reveal" style={{ transitionDelay: "150ms" }}>
-            <div className="mb-6">
-              <span
-                className="font-mono text-sm tracking-widest uppercase"
-                style={{ color: "oklch(0.84 0.15 205)" }}
-              >
-                {"// Quick Facts"}
-              </span>
-              <h2 className="text-3xl font-bold mt-1 text-foreground">
-                About Me
-              </h2>
-            </div>
-            <div
-              className="cyber-card p-6"
-              style={{
-                borderColor: "oklch(0.84 0.15 205 / 0.3)",
-                boxShadow: "0 0 25px oklch(0.84 0.15 205 / 0.08)",
-              }}
+        <div className="section-reveal mb-8">
+          <span
+            className="font-mono text-sm tracking-widest uppercase"
+            style={{ color: "oklch(0.87 0.28 145)" }}
+          >
+            {"// Interactive Shell"}
+          </span>
+          <h2 className="text-3xl font-bold mt-1 text-foreground">
+            Kali Linux Terminal
+          </h2>
+          <p className="text-foreground/45 text-sm mt-2">
+            A live terminal simulator. Type{" "}
+            <code
+              className="font-mono"
+              style={{ color: "oklch(0.87 0.28 145)" }}
             >
-              <p className="text-foreground/60 text-sm leading-relaxed mb-6">
-                I'm a Cybersecurity Engineer with 3+ years of hands-on
-                experience protecting organizations from evolving cyber threats.
-                I specialize in SOC operations, SIEM deployment, network
-                security, endpoint defense, and incident response.
-              </p>
-              <p className="text-foreground/60 text-sm leading-relaxed mb-6">
-                As the first point of contact for security intern teams at
-                Upsmart Solutions, I coordinate daily SOC activities, mentor
-                junior analysts, and ensure quality deliverables. I'm passionate
-                about building secure infrastructure and analyzing attack
-                patterns to prevent breaches before they happen.
-              </p>
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  { label: "Experience", val: "3+ Years" },
-                  { label: "Current Role", val: "Security Analyst" },
-                  { label: "Location", val: "Kerala, India" },
-                  { label: "Focus Area", val: "SOC / Network Security" },
-                ].map((item) => (
-                  <div
-                    key={item.label}
-                    className="bg-[oklch(0.11_0.02_240)] rounded p-3"
-                  >
-                    <div className="text-xs text-foreground/35 font-mono uppercase tracking-wider mb-0.5">
-                      {item.label}
-                    </div>
-                    <div
-                      className="text-sm font-semibold"
-                      style={{ color: "oklch(0.87 0.28 145)" }}
-                    >
-                      {item.val}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+              help
+            </code>{" "}
+            to see all commands.
+          </p>
+        </div>
+        <div className="section-reveal">
+          <KaliTerminal />
         </div>
       </div>
     </section>
@@ -139,7 +76,6 @@ export default function App() {
           <TerminalSection />
           <Certifications />
           <Experience />
-          <Documentation />
           <Contact />
         </main>
         <Footer />

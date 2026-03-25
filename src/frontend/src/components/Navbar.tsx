@@ -5,10 +5,9 @@ const NAV_LINKS = [
   { label: "Home", href: "#home" },
   { label: "Skills", href: "#skills" },
   { label: "Projects", href: "#projects" },
-  { label: "Experience", href: "#experience" },
   { label: "Terminal", href: "#terminal" },
   { label: "Certs", href: "#certifications" },
-  { label: "Docs", href: "#docs" },
+  { label: "Experience", href: "#experience" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -31,7 +30,6 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-        {/* Brand */}
         <a
           href="#home"
           className="flex items-center gap-2"
@@ -52,7 +50,6 @@ export default function Navbar() {
           </span>
         </a>
 
-        {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-6">
           {NAV_LINKS.map((link) => (
             <a
@@ -66,7 +63,6 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Mobile hamburger */}
         <button
           type="button"
           className="md:hidden p-2 text-foreground/70 hover:text-neon transition-colors"
@@ -89,7 +85,6 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile menu */}
       {mobileOpen && (
         <div className="md:hidden bg-[oklch(0.10_0.022_240/0.97)] border-t border-[oklch(0.22_0.04_240)] px-4 py-3 flex flex-col gap-3">
           {NAV_LINKS.map((link) => (
