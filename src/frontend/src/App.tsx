@@ -170,13 +170,13 @@ export default function App() {
         <main>
           <Hero />
           <Skills />
-          <ChallengeMode />
-          <Projects />
+          <SimulationPage />
           <SOCTelemetrySection />
           <NetworkTopologySection />
-          <SimulationPage />
           <TerminalSection />
           <Certifications />
+          <ChallengeMode />
+          <Projects />
           <Contact />
         </main>
         <Footer />
