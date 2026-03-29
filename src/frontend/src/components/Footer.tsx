@@ -24,7 +24,7 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-xs font-mono tracking-widest text-foreground/40 uppercase">
-              Cyber Security Engineer&nbsp;|&nbsp;SOC Analyst
+              Cyber Security Engineer&nbsp;|&nbsp;Red Team | Blue Teaming
             </p>
           </div>
 
