@@ -125,7 +125,7 @@ export default function Projects() {
               <div className="p-6 flex flex-col flex-1">
                 <div className="flex items-start gap-3 mb-4">
                   <div
-                    className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
+                    className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 icon-animate"
                     style={{
                       background: `${proj.accent}15`,
                       border: `1px solid ${proj.accent}30`,
@@ -161,7 +161,7 @@ export default function Projects() {
                     {proj.tools.map((tool) => (
                       <span
                         key={tool}
-                        className="px-2 py-0.5 rounded text-xs font-mono"
+                        className="px-2 py-0.5 rounded text-xs font-mono badge-shimmer"
                         style={{
                           background: `${proj.accent}10`,
                           border: `1px solid ${proj.accent}25`,

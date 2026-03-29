@@ -109,9 +109,9 @@
 
   .cyber-card:hover {
     border-color: oklch(0.87 0.28 145 / 0.7);
-    box-shadow: 0 0 24px oklch(0.87 0.28 145 / 0.18), 0 4px 28px
-      oklch(0 0 0 / 0.45);
-    transform: translateY(-3px);
+    box-shadow: 0 0 30px oklch(0.87 0.28 145 / 0.25), 0 8px 32px
+      oklch(0 0 0 / 0.5);
+    transform: translateY(-6px);
   }
 
   .btn-neon {
@@ -122,7 +122,7 @@
     border-radius: 0.375rem;
     font-family: "Plus Jakarta Sans", sans-serif;
     font-weight: 500;
-    transition: all 0.3s;
+    transition: all 0.3s, box-shadow 0.3s;
     cursor: pointer;
   }
 
@@ -132,6 +132,10 @@
     box-shadow: var(--glow-green);
   }
 
+  .btn-neon:active {
+    transform: scale(0.97);
+  }
+
   .btn-primary-neon {
     background: oklch(0.87 0.28 145);
     color: oklch(0.09 0.02 240);
@@ -139,13 +143,22 @@
     padding: 0.5rem 1.25rem;
     border-radius: 0.375rem;
     font-weight: 600;
-    transition: all 0.3s;
+    transition: all 0.3s, box-shadow 0.3s;
     cursor: pointer;
   }
 
   .btn-primary-neon:hover {
     background: oklch(0.92 0.28 145);
     box-shadow: var(--glow-green);
+    animation: btnPulse 0.6s ease;
+  }
+
+  .btn-primary-neon:active {
+    transform: scale(0.97);
+  }
+
+  .cta-glow-pulse {
+    animation: ctaGlow 2.5s ease-in-out infinite;
   }
 
   .terminal-text {
@@ -153,6 +166,7 @@
     color: oklch(0.87 0.28 145);
   }
 
+  /* Scroll reveal variants */
   .section-reveal {
     opacity: 0;
     transform: translateY(24px);
@@ -184,6 +198,61 @@
   .section-reveal-right.visible {
     opacity: 1;
     transform: translateX(0);
+  }
+
+  .section-reveal-scale {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .section-reveal-scale.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .section-reveal-blur {
+    opacity: 0;
+    filter: blur(8px);
+    transition: opacity 0.7s ease, filter 0.7s ease;
+  }
+
+  .section-reveal-blur.visible {
+    opacity: 1;
+    filter: blur(0);
+  }
+
+  /* Badge shimmer */
+  .badge-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .badge-shimmer::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      oklch(0.87 0.28 145 / 0.25) 50%,
+      transparent 100%
+    );
+    transform: translateX(-100%);
+    transition: transform 0.4s ease;
+  }
+
+  .badge-shimmer:hover::after {
+    transform: translateX(100%);
+  }
+
+  /* Icon animate */
+  .icon-animate svg {
+    transition: transform 0.3s ease;
+  }
+
+  .icon-animate:hover svg {
+    transform: rotate(10deg) scale(1.15);
   }
 
   .timeline-line {
@@ -218,7 +287,8 @@
   }
 }
 
-/* Caret blink animation */
+/* Keyframes */
+
 @keyframes caretBlink {
   0%,
   100% {
@@ -236,7 +306,6 @@
   margin-left: 2px;
 }
 
-/* Typewriter cursor */
 @keyframes blink {
   0%,
   100% {
@@ -247,7 +316,6 @@
   }
 }
 
-/* Threat map pulsing dot */
 @keyframes pulse-dot {
   0%,
   100% {
@@ -260,7 +328,6 @@
   }
 }
 
-/* Threat map pulse ring */
 @keyframes pulse-ring {
   0% {
     r: 6;
@@ -272,13 +339,54 @@
   }
 }
 
-/* Data flow animation */
 @keyframes data-flow {
   0% {
     stroke-dashoffset: 100;
   }
   100% {
     stroke-dashoffset: 0;
+  }
+}
+
+@keyframes btnPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.04);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes ctaGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 12px oklch(0.87 0.28 145 / 0.4), 0 0 24px
+      oklch(0.87 0.28 145 / 0.2);
+  }
+  50% {
+    box-shadow: 0 0 24px oklch(0.87 0.28 145 / 0.7), 0 0 48px
+      oklch(0.87 0.28 145 / 0.35);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes badgeShimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
   }
 }
 

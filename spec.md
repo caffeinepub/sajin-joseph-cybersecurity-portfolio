@@ -1,74 +1,48 @@
 # Sajin Joseph - Cybersecurity Portfolio
 
 ## Current State
-New project. No existing application files.
+- Hero: typing animation, rotating job titles, stats (3+, 25+, 11+), hex network visual, CTA buttons
+- Skills: cyber-card grid with animated progress bars and scroll-reveal
+- Projects: cyber-card grid with scroll-reveal
+- App.tsx: scroll-reveal via IntersectionObserver on section-reveal classes
+- index.css: section-reveal, cyber-card hover (lift+border glow), btn-neon/btn-primary-neon styles
+- No gamified challenges section
+- No particle background in hero
+- No number counter animation (stats are static strings)
+- No radar chart or circular progress rings
+- No badge shimmer or button pulse animations
 
 ## Requested Changes (Diff)
 
 ### Add
-- Full single-page cybersecurity portfolio for Sajin Joseph (Cybersecurity Engineer - Network & Infrastructure)
-- Cybersecurity Dark Theme: deep dark blue/black background, neon green/cyan accents, subtle grid/matrix effect, glowing buttons
-- Hero section: name, title, tagline, CTA buttons (View Projects, Contact Me)
-- About Me section: professional summary, years of experience, current role
-- Skills section: visual badges/cards grouped by category (Firewall, EDR/XDR, SIEM, Cloud, Network, Vuln Mgmt, etc.)
-- Projects/Labs section: 5 project cards with title, description, technologies used
-- Certifications section: visual badge cards for all certs
-- Career Timeline: vertical timeline showing Education, Jobs, Certifications chronologically
-- Hacker-style interactive terminal: supports commands: help, about, skills, projects, contact, clear
-- Contact section: email, LinkedIn, phone, resume download link
-- Micro-interactions: hover effects on cards, button glow, smooth scrolling, fade-in on scroll, animated counters
-- Mobile responsive design
-- Animated background: subtle matrix/grid particle effect
+- **ParticleBackground component**: Canvas-based particle field for hero section (floating dots with connecting lines, neon green/cyan, low opacity for performance)
+- **NumberCounter component**: Animates numbers from 0 to target value on scroll-into-view (for hero stats: 3+, 25+, 11+)
+- **Gamified Security Challenges section**: New `ChallengeMode.tsx` section with:
+  - Difficulty tabs: Beginner / Intermediate / Advanced
+  - Quiz format: "Can you spot the vulnerability?" with code/scenario display
+  - Multiple choice answers with correct/wrong feedback
+  - Mini CTF-style scenario decisions
+  - Score tracker + progress bar
+  - Cyberpunk styling matching existing theme
+- **Skill visualization upgrade**: Add `SkillRadar.tsx` with radar chart (SVG, no external lib) and circular progress rings alongside existing bars in Skills section
+- **Hero CTA glow**: Pulsing animated glow on primary CTA button
+- **Badge shimmer**: CSS keyframe shimmer animation on skill/cert badges
+- **Button pulse**: CSS keyframe pulse on hover for buttons
+- **Parallax subtle offset**: On scroll, hero background hex grid shifts slightly for depth effect
 
 ### Modify
-- None
+- `Hero.tsx`: Add ParticleBackground canvas inside hero, animate stat numbers with NumberCounter, add CTA glow class to primary button
+- `Skills.tsx`: Add radar chart view toggle and circular progress ring option
+- `index.css`: Add shimmer, pulse, particle, counter keyframes
+- `App.tsx`: Import and render ChallengeMode section between Skills and Projects
 
 ### Remove
-- None
+- Nothing removed
 
 ## Implementation Plan
-1. Backend: Store contact form messages (name, email, message, timestamp)
-2. Frontend: Single-page app with all sections listed above
-   - Animated dark background with grid/matrix effect using canvas
-   - Sticky nav with smooth scroll
-   - Hero with typewriter effect for title
-   - About with animated stat counters (years experience, tools mastered, certifications)
-   - Skills grid with category badges
-   - Project cards with tech tags and hover effects
-   - Certification badge grid
-   - Vertical career timeline
-   - Interactive terminal component
-   - Contact section with form wired to backend
-
-## Data
-- Name: Sajin Joseph
-- Title: Cybersecurity Engineer (Network & Infrastructure)
-- Location: Kerala, India
-- Email: sajinjoseph363@gmail.com
-- Phone: +91 7994247021
-- LinkedIn: https://www.linkedin.com/in/sajin-joseph-9471a9254/
-
-### Work History
-1. Security Analyst - Upsmart Solutions India Pvt Ltd (Present)
-2. Network Security Engineer - GKS Infotech Pvt Ltd (Sept 2024)
-3. Security Analyst - Cyberleap India Pvt Ltd (Dec 2023 - Sept 2024)
-
-### Certifications
-- CEH V12 (EC-Council Certified Ethical Hacker)
-- CND (EC-Council Certified Network Defender) - Ongoing
-- Sophos Certified Architect (Firewall & Endpoint)
-- Checkpoint Quantum Spark Technical Specialist
-- Qualys VMDR, CSAM, WAS
-- Google Cybersecurity
-- Azure Fundamentals
-- CrowdStrike Admin (Udemy)
-- Getting Started with Sentinel One
-- FortiAnalyzer 7.4 Administrator
-- AWS Certified Cloud Practitioner
-
-### Projects
-1. Penetration Testing Lab (Kali Linux & Metasploitable)
-2. Malware Development & Analysis Lab
-3. Security Monitoring & Infrastructure Defense Lab (Wazuh & EVE-NG)
-4. Network & Infrastructure Security for Critical Environments
-5. AI-Enhanced SIEM Integration (Wazuh)
+1. Create `src/frontend/src/components/ParticleBackground.tsx` — Canvas particle system, hero-scoped, lightweight
+2. Create `src/frontend/src/components/sections/ChallengeMode.tsx` — Full gamified challenge section with quiz/scenario/scoring
+3. Update `Hero.tsx` — Add ParticleBackground, animate stats with useCountUp hook, add pulse-glow class to primary CTA
+4. Update `Skills.tsx` — Add skill radar SVG chart + circular progress rings as alternative visualization
+5. Update `index.css` — Add shimmer, badge-shimmer, btn-pulse, cta-glow keyframes and classes
+6. Update `App.tsx` — Import ChallengeMode, render between Skills and Projects

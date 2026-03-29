@@ -8,6 +8,7 @@ import Navbar from "./components/Navbar";
 import NetworkTopologyDiagram from "./components/NetworkTopologyDiagram";
 import SOCDashboard from "./components/SOCDashboard";
 import Certifications from "./components/sections/Certifications";
+import ChallengeMode from "./components/sections/ChallengeMode";
 import Contact from "./components/sections/Contact";
 import Hero from "./components/sections/Hero";
 import Projects from "./components/sections/Projects";
@@ -169,6 +170,7 @@ export default function App() {
         <main>
           <Hero />
           <Skills />
+          <ChallengeMode />
           <Projects />
           <SOCTelemetrySection />
           <NetworkTopologySection />

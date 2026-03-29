@@ -1,5 +1,6 @@
 import { ChevronDown, Download, Eye, Mail } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import ParticleBackground from "../ParticleBackground";
 
 const ROLES = [
   "Cybersecurity Engineer",
@@ -7,6 +8,72 @@ const ROLES = [
   "Threat Hunter",
   "Network Security Engineer",
 ];
+
+function useCountUp(target: number, enabled: boolean) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    if (!enabled) return;
+    let start = 0;
+    const duration = 1800;
+    const step = Math.ceil(target / (duration / 16));
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= target) {
+        setCount(target);
+        clearInterval(timer);
+      } else {
+        setCount(start);
+      }
+    }, 16);
+    return () => clearInterval(timer);
+  }, [target, enabled]);
+  return count;
+}
+
+function AnimatedStat({
+  value,
+  suffix,
+  label,
+}: {
+  value: number;
+  suffix: string;
+  label: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  const count = useCountUp(value, visible);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.5 },
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref}>
+      <div
+        className="text-2xl font-bold font-mono"
+        style={{ color: "oklch(0.87 0.28 145)" }}
+      >
+        {count}
+        {suffix}
+      </div>
+      <div className="text-xs text-foreground/40 uppercase tracking-wider">
+        {label}
+      </div>
+    </div>
+  );
+}
 
 export default function Hero() {
   const [roleIdx, setRoleIdx] = useState(0);
@@ -38,8 +105,10 @@ export default function Hero() {
     <section
       id="home"
       className="min-h-screen flex items-center relative z-10 hex-bg"
+      style={{ overflow: "hidden" }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-24 w-full">
+      <ParticleBackground />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-24 w-full relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Left column */}
           <div className="space-y-6">
@@ -108,7 +177,7 @@ export default function Hero() {
               <a href="#projects" data-ocid="hero.primary_button">
                 <button
                   type="button"
-                  className="btn-primary-neon flex items-center gap-2 px-6 py-2.5"
+                  className="btn-primary-neon cta-glow-pulse flex items-center gap-2 px-6 py-2.5"
                 >
                   <Eye className="w-4 h-4" />
                   View Projects
@@ -143,25 +212,11 @@ export default function Hero() {
               </a>
             </div>
 
-            {/* Stats */}
+            {/* Stats with animated counters */}
             <div className="flex gap-8 pt-4">
-              {[
-                { label: "Years Exp", value: "3+" },
-                { label: "Tools Mastered", value: "25+" },
-                { label: "Certifications", value: "11+" },
-              ].map((stat) => (
-                <div key={stat.label}>
-                  <div
-                    className="text-2xl font-bold font-mono"
-                    style={{ color: "oklch(0.87 0.28 145)" }}
-                  >
-                    {stat.value}
-                  </div>
-                  <div className="text-xs text-foreground/40 uppercase tracking-wider">
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
+              <AnimatedStat value={3} suffix="+" label="Years Exp" />
+              <AnimatedStat value={25} suffix="+" label="Tools Mastered" />
+              <AnimatedStat value={11} suffix="+" label="Certifications" />
             </div>
           </div>
 
@@ -211,7 +266,7 @@ export default function Hero() {
               ].map((badge) => (
                 <div
                   key={badge.label}
-                  className="absolute px-2 py-1 rounded font-mono text-xs font-bold"
+                  className="absolute px-2 py-1 rounded font-mono text-xs font-bold badge-shimmer"
                   style={{
                     top: badge.top,
                     left: badge.left,
