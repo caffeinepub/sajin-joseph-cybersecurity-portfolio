@@ -13,7 +13,7 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 // Replace with your Formspree form ID from https://formspree.io
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/xpwzgpqn";
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xvzvkjkj";
 
 function isValidEmail(value: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
