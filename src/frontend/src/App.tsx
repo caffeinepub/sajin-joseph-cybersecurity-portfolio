@@ -149,9 +149,9 @@ function NetworkTopologySection() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <SectionHeader
-          label="// Network Architecture"
-          title="Interactive Network Topology"
-          description="Click any node to explore security risks, protections, and roles in the enterprise network architecture."
+          label="// Enterprise Security Architecture"
+          title="Enterprise Network Security Architecture"
+          description="Simulated high-security multi-zone infrastructure with layered defense controls"
         />
         <div className="section-reveal">
           <NetworkTopologyDiagram />
