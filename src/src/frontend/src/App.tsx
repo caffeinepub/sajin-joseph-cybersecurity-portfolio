@@ -12,7 +12,6 @@ import ChallengeMode from "./components/sections/ChallengeMode";
 import Contact from "./components/sections/Contact";
 import Hero from "./components/sections/Hero";
 import Projects from "./components/sections/Projects";
-import SOCOperationsCenter from "./components/sections/SOCOperationsCenter";
 import SimulationPage from "./components/sections/SimulationPage";
 import Skills from "./components/sections/Skills";
 
@@ -173,7 +172,6 @@ export default function App() {
           <Skills />
           <SimulationPage />
           <SOCTelemetrySection />
-          <SOCOperationsCenter />
           <NetworkTopologySection />
           <TerminalSection />
           <Certifications />
