@@ -11,14 +11,20 @@ import {
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
-import { useSubmitContact } from "../../hooks/useQueries";
+
+// Replace with your Formspree form ID from https://formspree.io
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xpwzgpqn";
+
+function isValidEmail(value: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
 
 export default function Contact() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const { mutate, isPending } = useSubmitContact();
+  const [isPending, setIsPending] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -36,27 +42,47 @@ export default function Contact() {
     return () => observer.disconnect();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (!name.trim() || !email.trim() || !message.trim()) {
       toast.error("Please fill in all fields.");
       return;
     }
-    mutate(
-      { name, email, message },
-      {
-        onSuccess: () => {
-          setSubmitted(true);
-          setName("");
-          setEmail("");
-          setMessage("");
-          toast.success("Message sent! Sajin will get back to you soon.");
+    if (!isValidEmail(email.trim())) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+
+    setIsPending(true);
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
         },
-        onError: () => {
-          toast.error("Failed to send message. Please try again.");
-        },
-      },
-    );
+        body: JSON.stringify({ name, email, message }),
+      });
+
+      if (res.ok) {
+        setSubmitted(true);
+        setName("");
+        setEmail("");
+        setMessage("");
+        toast.success("Message sent! Sajin will get back to you soon.");
+      } else {
+        const data = await res.json().catch(() => ({}));
+        toast.error(
+          (data as { error?: string }).error ??
+            "Failed to send message. Please try again.",
+        );
+      }
+    } catch {
+      toast.error("Network error. Please check your connection and try again.");
+    } finally {
+      setIsPending(false);
+    }
   };
 
   return (
