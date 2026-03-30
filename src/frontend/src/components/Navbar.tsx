@@ -26,8 +26,8 @@ function NavAvatar() {
         <div className="nav-avatar-ring-outer absolute inset-[-3px] rounded-full" />
         {/* Inner image */}
         <img
-          src="/assets/generated/cyberpunk-avatar-sajin.dim_600x600.png"
-          alt="Sajin Joseph"
+          src="/assets/generated/sj-cyberpunk-logo.dim_600x600.png"
+          alt="SJ Logo"
           loading="eager"
           className="nav-avatar-img relative z-10 w-full h-full rounded-full object-cover object-center"
         />
