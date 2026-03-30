@@ -24,12 +24,19 @@ function NavAvatar() {
       <div className="nav-avatar-ring relative w-8 h-8 sm:w-10 sm:h-10 shrink-0">
         {/* Rotating + pulsing gradient ring */}
         <div className="nav-avatar-ring-outer absolute inset-[-3px] rounded-full" />
-        {/* Inner image */}
+        {/* Inner image — explicit size attrs help browser render at correct DPR */}
         <img
-          src="/assets/generated/sj-cyberpunk-logo.dim_600x600.png"
-          alt="SJ Logo"
+          src="/assets/uploads/chatgpt_image_mar_30_2026_06_41_46_am-019d3c5e-e4d1-717a-a418-9279d135fed1-1.png"
+          alt="Sajin Joseph"
+          width={600}
+          height={600}
           loading="eager"
+          decoding="async"
           className="nav-avatar-img relative z-10 w-full h-full rounded-full object-cover object-center"
+          style={{
+            imageRendering: "auto",
+            WebkitBackfaceVisibility: "hidden",
+          }}
         />
       </div>
       <span className="text-foreground/60 font-medium text-sm hidden sm:inline transition-colors duration-200 group-hover:text-foreground/90">

@@ -593,6 +593,13 @@ body::after {
 .nav-avatar-img {
   border: 2px solid oklch(0.085 0.022 240);
   transition: box-shadow 0.35s ease, transform 0.35s ease;
+  /* Sharpness rendering hints for high-DPI displays */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: auto;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 /* Hover: keep animations running, boost glow */
