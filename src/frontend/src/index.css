@@ -536,3 +536,59 @@ body::after {
 .terminal-float-btn {
   animation: terminal-btn-pulse 2s ease-in-out infinite;
 }
+
+/* ============================================
+   NAV AVATAR — ROTATING NEON RING
+   ============================================ */
+@keyframes nav-ring-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes nav-avatar-glow-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 8px #00ff9f55, 0 0 16px #00eaff33;
+  }
+  50% {
+    box-shadow: 0 0 16px #00ff9f99, 0 0 30px #00eaff55;
+  }
+}
+
+.nav-avatar-ring {
+  cursor: pointer;
+}
+
+/* Conic-gradient ring that spins */
+.nav-avatar-ring-outer {
+  background: conic-gradient(
+    from 0deg,
+    oklch(0.87 0.28 145) 0%,
+    oklch(0.84 0.15 205) 40%,
+    oklch(0.87 0.28 145 / 0.15) 70%,
+    oklch(0.87 0.28 145) 100%
+  );
+  border-radius: 50%;
+  animation: nav-ring-spin 3s linear infinite;
+}
+
+/* Image: sits on top with a 2px inset gap */
+.nav-avatar-img {
+  border: 2px solid oklch(0.085 0.022 240);
+  transition: box-shadow 0.35s ease, transform 0.35s ease;
+}
+
+/* Hover: pause spin, add strong glow pulse */
+.nav-avatar-wrap:hover .nav-avatar-ring-outer {
+  animation-play-state: paused;
+}
+
+.nav-avatar-wrap:hover .nav-avatar-img {
+  box-shadow: 0 0 0 1px oklch(0.87 0.28 145 / 0.8), 0 0 18px
+    oklch(0.87 0.28 145 / 0.55), 0 0 36px oklch(0.84 0.15 205 / 0.3);
+  transform: scale(1.05);
+}

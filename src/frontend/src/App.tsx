@@ -9,6 +9,7 @@ import MatrixBackground from "./components/MatrixBackground";
 import Navbar from "./components/Navbar";
 import NetworkTopologyDiagram from "./components/NetworkTopologyDiagram";
 import SOCDashboard from "./components/SOCDashboard";
+import About from "./components/sections/About";
 import Certifications from "./components/sections/Certifications";
 import ChallengeMode from "./components/sections/ChallengeMode";
 import Contact from "./components/sections/Contact";
@@ -221,6 +222,7 @@ export default function App() {
         <Navbar />
         <main>
           <Hero />
+          <About />
           <Skills />
           <SimulationPage />
           <SOCTelemetrySection />

@@ -1,6 +1,18 @@
-import { ChevronDown, Download, Eye, Mail } from "lucide-react";
+import { ChevronDown, Download, LogIn, Mail } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import ParticleBackground from "../ParticleBackground";
+
+const BOOT_SEQUENCE = [
+  {
+    text: "Initializing Security Portfolio...",
+    color: "oklch(0.75 0.025 240)",
+  },
+  { text: "Access Granted", color: "oklch(0.87 0.28 145)" },
+  {
+    text: "Welcome to Sajin Joseph Cybersecurity Lab",
+    color: "oklch(0.84 0.15 205)",
+  },
+];
 
 const ROLES = [
   "Cybersecurity Engineer",
@@ -75,12 +87,79 @@ function AnimatedStat({
   );
 }
 
+function BootSequence({ onComplete }: { onComplete: () => void }) {
+  const [lineIdx, setLineIdx] = useState(0);
+  const [charIdx, setCharIdx] = useState(0);
+  const [completedLines, setCompletedLines] = useState<typeof BOOT_SEQUENCE>(
+    [],
+  );
+
+  useEffect(() => {
+    if (lineIdx >= BOOT_SEQUENCE.length) {
+      const t = setTimeout(onComplete, 600);
+      return () => clearTimeout(t);
+    }
+    const line = BOOT_SEQUENCE[lineIdx];
+    if (charIdx < line.text.length) {
+      const speed = lineIdx === 1 ? 60 : 45;
+      const t = setTimeout(() => setCharIdx((c) => c + 1), speed);
+      return () => clearTimeout(t);
+    }
+    const pause = lineIdx === 1 ? 700 : 400;
+    const t = setTimeout(() => {
+      setCompletedLines((prev) => [...prev, line]);
+      setLineIdx((l) => l + 1);
+      setCharIdx(0);
+    }, pause);
+    return () => clearTimeout(t);
+  }, [lineIdx, charIdx, onComplete]);
+
+  const currentEntry =
+    lineIdx < BOOT_SEQUENCE.length ? BOOT_SEQUENCE[lineIdx] : null;
+  const currentText = currentEntry ? currentEntry.text.slice(0, charIdx) : "";
+
+  return (
+    <div
+      className="font-mono text-sm space-y-1 mb-6 p-3 rounded"
+      style={{
+        background: "oklch(0.09 0.022 240 / 0.6)",
+        border: "1px solid oklch(0.87 0.28 145 / 0.2)",
+        maxWidth: "520px",
+      }}
+    >
+      {completedLines.map((entry) => (
+        <div key={entry.text} className="flex items-start gap-2">
+          <span style={{ color: "oklch(0.87 0.28 145 / 0.5)" }}>[SYSTEM]</span>
+          <span style={{ color: entry.color }}>{entry.text}</span>
+        </div>
+      ))}
+      {currentEntry && (
+        <div className="flex items-start gap-2">
+          <span style={{ color: "oklch(0.87 0.28 145 / 0.5)" }}>[SYSTEM]</span>
+          <span style={{ color: currentEntry.color }}>
+            {currentText}
+            <span
+              className="inline-block w-0.5 h-3.5 ml-0.5 align-middle"
+              style={{
+                background: "oklch(0.87 0.28 145)",
+                animation: "caretBlink 1s step-end infinite",
+              }}
+            />
+          </span>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function Hero() {
+  const [bootDone, setBootDone] = useState(false);
   const [roleIdx, setRoleIdx] = useState(0);
   const [displayed, setDisplayed] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
+    if (!bootDone) return;
     const role = ROLES[roleIdx];
     let timeout: ReturnType<typeof setTimeout>;
 
@@ -99,7 +178,7 @@ export default function Hero() {
     }
 
     return () => clearTimeout(timeout);
-  }, [displayed, isDeleting, roleIdx]);
+  }, [displayed, isDeleting, roleIdx, bootDone]);
 
   return (
     <section
@@ -127,6 +206,29 @@ export default function Hero() {
               Available for Security Engineering Roles
             </div>
 
+            {/* Boot sequence or completed display */}
+            {!bootDone ? (
+              <BootSequence onComplete={() => setBootDone(true)} />
+            ) : (
+              <div
+                className="font-mono text-sm p-3 rounded mb-2"
+                style={{
+                  background: "oklch(0.09 0.022 240 / 0.6)",
+                  border: "1px solid oklch(0.87 0.28 145 / 0.2)",
+                  maxWidth: "520px",
+                }}
+              >
+                {BOOT_SEQUENCE.map((entry) => (
+                  <div key={entry.text} className="flex items-start gap-2">
+                    <span style={{ color: "oklch(0.87 0.28 145 / 0.5)" }}>
+                      [SYSTEM]
+                    </span>
+                    <span style={{ color: entry.color }}>{entry.text}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+
             <div>
               <p className="text-foreground/50 text-lg font-medium mb-1">
                 Hello, I'm
@@ -146,19 +248,21 @@ export default function Hero() {
             </div>
 
             <div className="h-8 flex items-center">
-              <span
-                className="font-mono text-xl"
-                style={{ color: "oklch(0.84 0.15 205)" }}
-              >
-                {displayed}
+              {bootDone && (
                 <span
-                  className="inline-block w-0.5 h-5 ml-0.5 align-middle"
-                  style={{
-                    background: "oklch(0.87 0.28 145)",
-                    animation: "caretBlink 1s step-end infinite",
-                  }}
-                />
-              </span>
+                  className="font-mono text-xl"
+                  style={{ color: "oklch(0.84 0.15 205)" }}
+                >
+                  {displayed}
+                  <span
+                    className="inline-block w-0.5 h-5 ml-0.5 align-middle"
+                    style={{
+                      background: "oklch(0.87 0.28 145)",
+                      animation: "caretBlink 1s step-end infinite",
+                    }}
+                  />
+                </span>
+              )}
             </div>
 
             <p className="text-foreground/60 text-base leading-relaxed max-w-xl">
@@ -174,13 +278,13 @@ export default function Hero() {
             </p>
 
             <div className="flex flex-wrap gap-3 pt-2">
-              <a href="#projects" data-ocid="hero.primary_button">
+              <a href="#about" data-ocid="hero.primary_button">
                 <button
                   type="button"
                   className="btn-primary-neon cta-glow-pulse flex items-center gap-2 px-6 py-2.5"
                 >
-                  <Eye className="w-4 h-4" />
-                  View Projects
+                  <LogIn className="w-4 h-4" />
+                  Enter System
                 </button>
               </a>
               <a
@@ -212,7 +316,6 @@ export default function Hero() {
               </a>
             </div>
 
-            {/* Stats with animated counters */}
             <div className="flex gap-8 pt-4">
               <AnimatedStat value={3} suffix="+" label="Years Exp" />
               <AnimatedStat value={25} suffix="+" label="Tools Mastered" />
@@ -220,10 +323,9 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Right column — hex network visual */}
+          {/* Right column */}
           <div className="hidden lg:flex items-center justify-center relative">
             <div className="relative w-[480px] h-[480px]">
-              {/* Outer glow ring */}
               <div
                 className="absolute inset-0 rounded-full"
                 style={{
@@ -232,7 +334,6 @@ export default function Hero() {
                   border: "1px solid oklch(0.87 0.28 145 / 0.15)",
                 }}
               />
-              {/* Main image */}
               <img
                 src="/assets/generated/hero-hex-network.dim_600x600.png"
                 alt="Hex network cyber visualization"
@@ -242,7 +343,6 @@ export default function Hero() {
                   mixBlendMode: "screen",
                 }}
               />
-              {/* Center avatar */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <div
                   className="w-28 h-28 rounded-full flex items-center justify-center font-bold text-3xl font-mono"
@@ -257,7 +357,6 @@ export default function Hero() {
                   SJ
                 </div>
               </div>
-              {/* Floating badges */}
               {[
                 { label: "CEH", top: "10%", left: "5%" },
                 { label: "SOC", top: "10%", right: "5%" },
@@ -285,7 +384,6 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Scroll indicator */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-foreground/30">
           <span className="text-xs font-mono uppercase tracking-widest">
             Scroll

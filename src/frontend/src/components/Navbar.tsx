@@ -1,8 +1,8 @@
-import { Shield } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const NAV_LINKS = [
   { label: "Home", href: "#home" },
+  { label: "About", href: "#about" },
   { label: "Skills", href: "#skills" },
   { label: "Simulation", href: "#simulation" },
   { label: "SOC Ops", href: "#soc-ops" },
@@ -11,6 +11,32 @@ const NAV_LINKS = [
   { label: "Projects", href: "#projects" },
   { label: "Contact", href: "#contact" },
 ];
+
+function NavAvatar() {
+  return (
+    <a
+      href="#home"
+      className="nav-avatar-wrap flex items-center gap-2.5 group"
+      aria-label="Scroll to top"
+      data-ocid="nav.link"
+    >
+      {/* Avatar with animated neon ring */}
+      <div className="nav-avatar-ring relative w-9 h-9 shrink-0">
+        {/* Rotating gradient ring */}
+        <div className="nav-avatar-ring-outer absolute inset-[-2px] rounded-full" />
+        {/* Inner image */}
+        <img
+          src="/assets/uploads/image-019d1d8f-56dd-749c-bc4a-6043a2ea76ec-1.png"
+          alt="Sajin Joseph"
+          className="nav-avatar-img relative z-10 w-full h-full rounded-full object-cover object-top"
+        />
+      </div>
+      <span className="text-foreground/60 font-medium text-sm hidden sm:inline transition-colors duration-200 group-hover:text-foreground/90">
+        Sajin Joseph
+      </span>
+    </a>
+  );
+}
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -31,25 +57,7 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-        <a
-          href="#home"
-          className="flex items-center gap-2"
-          data-ocid="nav.link"
-        >
-          <Shield
-            className="w-5 h-5"
-            style={{ color: "oklch(0.87 0.28 145)" }}
-          />
-          <span
-            className="font-mono font-bold text-lg"
-            style={{ color: "oklch(0.87 0.28 145)" }}
-          >
-            SJ
-          </span>
-          <span className="text-foreground/60 font-medium text-sm hidden sm:inline">
-            | Sajin Joseph
-          </span>
-        </a>
+        <NavAvatar />
 
         <nav className="hidden md:flex items-center gap-6">
           {NAV_LINKS.map((link) => (
