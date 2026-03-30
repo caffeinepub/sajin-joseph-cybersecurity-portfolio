@@ -344,18 +344,14 @@ export default function Hero() {
                 }}
               />
               <div className="absolute inset-0 flex items-center justify-center">
-                <div
-                  className="w-28 h-28 rounded-full flex items-center justify-center font-bold text-3xl font-mono"
+                <img
+                  src="/assets/generated/cyberpunk-avatar-sajin-v2.dim_600x600.png"
+                  alt="Sajin Joseph"
+                  className="w-64 h-64 rounded-full object-cover object-center"
                   style={{
-                    background: "oklch(0.14 0.025 240)",
-                    border: "2px solid oklch(0.87 0.28 145 / 0.7)",
-                    boxShadow:
-                      "0 0 30px oklch(0.87 0.28 145 / 0.4), inset 0 0 20px oklch(0.87 0.28 145 / 0.1)",
-                    color: "oklch(0.87 0.28 145)",
+                    filter: "drop-shadow(0 0 20px oklch(0.7 0.35 300 / 0.6))",
                   }}
-                >
-                  SJ
-                </div>
+                />
               </div>
               {[
                 { label: "CEH", top: "10%", left: "5%" },
