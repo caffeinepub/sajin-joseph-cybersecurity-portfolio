@@ -563,17 +563,30 @@ body::after {
   cursor: pointer;
 }
 
-/* Conic-gradient ring that spins */
+/* Conic-gradient ring: spins + pulses */
 .nav-avatar-ring-outer {
   background: conic-gradient(
     from 0deg,
-    oklch(0.87 0.28 145) 0%,
-    oklch(0.84 0.15 205) 40%,
-    oklch(0.87 0.28 145 / 0.15) 70%,
-    oklch(0.87 0.28 145) 100%
+    #00ff9f 0%,
+    #00eaff 40%,
+    rgba(0, 255, 159, 0.15) 70%,
+    #00ff9f 100%
   );
   border-radius: 50%;
-  animation: nav-ring-spin 3s linear infinite;
+  animation: nav-ring-spin 4s linear infinite, navRingPulse 2s ease-in-out
+    infinite;
+}
+
+@keyframes navRingPulse {
+  0%,
+  100% {
+    opacity: 0.7;
+    box-shadow: 0 0 6px #00ff9f, 0 0 12px #00eaff;
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 12px #00ff9f, 0 0 24px #00eaff;
+  }
 }
 
 /* Image: sits on top with a 2px inset gap */
@@ -582,9 +595,10 @@ body::after {
   transition: box-shadow 0.35s ease, transform 0.35s ease;
 }
 
-/* Hover: pause spin, add strong glow pulse */
+/* Hover: keep animations running, boost glow */
 .nav-avatar-wrap:hover .nav-avatar-ring-outer {
-  animation-play-state: paused;
+  animation-play-state: running;
+  box-shadow: 0 0 14px #00ff9f, 0 0 28px #00eaff;
 }
 
 .nav-avatar-wrap:hover .nav-avatar-img {

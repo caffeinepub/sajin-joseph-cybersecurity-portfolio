@@ -21,14 +21,15 @@ function NavAvatar() {
       data-ocid="nav.link"
     >
       {/* Avatar with animated neon ring */}
-      <div className="nav-avatar-ring relative w-9 h-9 shrink-0">
-        {/* Rotating gradient ring */}
-        <div className="nav-avatar-ring-outer absolute inset-[-2px] rounded-full" />
+      <div className="nav-avatar-ring relative w-8 h-8 sm:w-10 sm:h-10 shrink-0">
+        {/* Rotating + pulsing gradient ring */}
+        <div className="nav-avatar-ring-outer absolute inset-[-3px] rounded-full" />
         {/* Inner image */}
         <img
           src="/assets/uploads/image-019d1d8f-56dd-749c-bc4a-6043a2ea76ec-1.png"
           alt="Sajin Joseph"
-          className="nav-avatar-img relative z-10 w-full h-full rounded-full object-cover object-top"
+          loading="eager"
+          className="nav-avatar-img relative z-10 w-full h-full rounded-full object-cover object-center"
         />
       </div>
       <span className="text-foreground/60 font-medium text-sm hidden sm:inline transition-colors duration-200 group-hover:text-foreground/90">
